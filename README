@@ -1,0 +1,67 @@
+Word Ladder and Anagrams in Java
+
+Word Ladder: This program aims to find the shortest path possible from the start word to the end word (eg: cat to bug -> cat > cut > but > bug ) which are both input by the user 
+in the command line itself using  a Breadth-First-Search. We used a queue implemented through a linked list *, a HashSet, and a HashMap. 
+The HashSet setOfWords stores all words from the dictionary which are of the same length as the start word and the end word.
+The main method of the program deals with error cases: 1) the start and end words should be of the same length 2) the start word and end 
+word should not be the same and 3) the start word and the end word should both be present in the HashSet of words. We call the 
+solutionLadder method in the main method. The solutionLadder method does two things: 1) it creates a HashMap with key value pairs where 
+the keys are the words from the HashSet and the values are Arraylists containing all the neighbors of the words and 2) it retrieves the
+words from a queue where the word ladder is stored in backwards order and prints it out in the start-to-end order. If no such word 
+ladder exists for the input words, it prints a message saying so. 
+To find the neighbors of the words stored as keys in the HashMap we have a boolean method isANeighbor that returns true if two words are
+neighbors (have all common letters except one) and false if two words are not neighbors. The backwards word ladder that we used in the so
+lutionLadder method is created in a method hasLadder. hasLadder uses a linked list based queue called path and a HashMap called endMap. 
+The path queue is used to store all the words that have been visited from the mapOfWords HashMap that was created in solutionLadder. The
+endMap HashMap stores potential links between words. The endMap keys are the neighbors of the currentWord that is being looked at from 
+the path queue and the values are the currentWord itself. Once the neighbor is equal to the end word entered by the user, we start 
+building the backwards word ladder. Once we have finished building this, we return true. If no such word ladder could be built, we 
+return false. This method hasLadder is called in solutionLadder. 
+
+Anagrams: This program aims to find all the possible anagrams of the word input by the user (eg: anangrams for pot are opt, top, and pot).
+To do this, we create a Hashmap that stores as its keys all the words in the dictionary that are of the same length as the inputWord 
+and as its values the sorted versions of the key.
+We have a method called sortWord to sort the letters of the word in alphabetical order. Using this method, we not only find 
+the sorted versions of all the keys in the HashMap but that of the inputWord as well. In a function called anagrams, we then compare 
+the values of the HashMap with the sorted version of the inputWord. If these are the same, the key of this value is an anagram of the 
+inputWord and we add it to our collectionOfAnagrams ArrayList. The ArrayList is returned by this method. In the main method, we store 
+the ArrayList returned by the anagrams method and print the anagrams out. If the size of this arraylist is 0, it means, the word has no 
+anagrams in the dictionary and we print an appropriate output message for this situation.
+
+* To do this, we wrote a Queue class which is based on a linked list implementation. It has the methods: enqueue (adding to the end of 
+the linked list), dequeue (removing from the front of the linked list), size (returns the number of nodes in the linked list) and 
+isEmpty (boolean function that checks if the linked list is empty).
+
+COMMAND LINE SYNTAX:
+
+To call the word ladder method the command line syntax is: java WordGameHelper ladder [startWord] [endWord]. A word ladder will be 
+found from the startWord to endWord. The code prints error messages if the command line syntax is incorrect, if the start and end words 
+are not the same length, if one of the words is not in the dictionary file or if the start and end words are the same. 
+
+In order to call the anagrams method the command line syntax is: java WordGameHelper anagram [inputWord]. Anagrams will then be found 
+for the inputWord. Our code will print error messages if the command line syntax is not followed or if there are no anagrams of the 
+input word found in the dictionary file. 
+
+DATA STRUCTURES USED: 
+
+The word ladder method uses 
+1) HashSet of Strings. It stores the words from the dictionary file with the same length as the start and end words of the word ladder 
+2) LinkedList implementation of a queue with the front of the queue as the front of the LinkedList and the end of the queue as the end 
+of the Linked List. It stores “visited words” from the HashSet of dictionary file words. The visited words include neighbors of the 
+words that are being compared to the start and end word.  
+3) HashMap with String keys and ArrayList values. It stores a String key that is a word with the same length as the start and end 
+words, and the value which is an ArrayList of Strings that are the neighboring (one letter difference) words of the key.
+4) Another LinkedList implementation of a queue with the front of the queue as the front of the LinkedList and the end of the queue as 
+the end of the LinkedList. It stores Strings of the solution words in the word ladder in order from endWord to startWord. 
+5) HashMap with String keys and String values. It stores a String key that is a neighbor of the String value word. These are word links 
+value pairs that will potentially be part of the final word ladder. 
+
+The anagram method uses
+1) HashMap of String keys- words from the dictionary file with the same length as the inputWord, and String values- the alphabetically 
+sorted versions of the keys.
+2) ArrayList of Strings. It stores String anagrams of the inputWord. 
+
+
+STATUS OF THE PROGRAM 
+
+This program compiles and runs without error. Both parts of the program, the word ladder and anagram finder, work. 
